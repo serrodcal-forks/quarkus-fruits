@@ -1,0 +1,21 @@
+####
+# This Dockerfile is used in order to build a container that runs the Quarkus application in native (no JVM) mode
+#
+# Before building the docker image run:
+#
+# mvn package -Pnative -Dnative-image.docker-build=true -Dquarkus.native.container-runtime=docker
+#
+# Then, build the image with:
+#
+# docker build -f src/main/docker/Dockerfile.distroless -t quarkus/fruit .
+#
+# Then run the container using:
+#
+# docker run -i --rm -p 8080:8080 quarkus/fruit
+#
+###
+
+FROM cescoffier/native-base:latest
+COPY target/*-runner /application
+EXPOSE 8080
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
