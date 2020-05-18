@@ -1,7 +1,5 @@
 package com.serrodcal.poc.resource;
 
-import javax.json.Json;
-import javax.json.bind.Jsonb;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -34,7 +32,7 @@ public class FruitResource {
     public Uni<Response> getFruits() {
         logger.info("FruitResource.getFruits()");
         try {
-            return this.fruitService.getFruits()
+            return Uni.createFrom().item(this.fruitService.getFruits())
                     .map(fruits -> {
                         if (fruits.size() > 0) {
                             return Response.status(Response.Status.OK).entity(fruits).build();

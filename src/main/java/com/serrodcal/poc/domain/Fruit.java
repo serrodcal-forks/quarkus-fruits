@@ -1,5 +1,8 @@
 package com.serrodcal.poc.domain;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class Fruit {
 
     public String name;
@@ -13,11 +16,4 @@ public class Fruit {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "\"name\": \"" + name + "\"," +
-                "\"description\": \"" + description + '\"' +
-                "}";
-    }
 }
