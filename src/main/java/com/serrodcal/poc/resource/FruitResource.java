@@ -32,7 +32,7 @@ public class FruitResource {
     public Uni<Response> getFruits() {
         logger.info("FruitResource.getFruits()");
         try {
-            return Uni.createFrom().item(this.fruitService.getFruits())
+            return this.fruitService.getFruits()
                     .map(fruits -> {
                         if (fruits.size() > 0) {
                             return Response.status(Response.Status.OK).entity(fruits).build();

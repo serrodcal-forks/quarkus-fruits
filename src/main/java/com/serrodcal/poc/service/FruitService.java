@@ -22,8 +22,8 @@ public class FruitService {
     }
 
     @CircuitBreaker(requestVolumeThreshold = 4)
-    public Set<Fruit> getFruits() {
-        return this.fruits;
+    public Uni<Set<Fruit>> getFruits() {
+        return Uni.createFrom().item(this.fruits);
     }
 
 }
