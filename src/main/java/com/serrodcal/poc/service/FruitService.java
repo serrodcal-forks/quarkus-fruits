@@ -2,6 +2,7 @@ package com.serrodcal.poc.service;
 
 import com.serrodcal.poc.domain.Fruit;
 import io.smallrye.mutiny.Uni;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Collections;
@@ -20,6 +21,7 @@ public class FruitService {
         fruits.add(new Fruit("Pineapple", "Tropical fruit"));
     }
 
+    @CircuitBreaker(requestVolumeThreshold = 4)
     public Uni<Set<Fruit>> getFruits() {
         return Uni.createFrom().item(this.fruits);
     }
