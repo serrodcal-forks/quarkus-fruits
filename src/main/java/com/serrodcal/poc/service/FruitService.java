@@ -20,10 +20,6 @@ public class FruitService {
         fruits.add(new Fruit("Pineapple", "Tropical fruit"));
     }
 
-    public Set<Fruit> getFruits() { return this.fruits; }
-
-    public void setFruits(Set<Fruit> fruits) {
-        this.fruits.addAll(fruits);
-    }
+    public Uni<Set<Fruit>> getFruits() { return Uni.createFrom().item( this.fruits); }
 
 }
