@@ -35,15 +35,14 @@ public class FruitResource {
     public Uni<Response> getFruits() {
         logger.info("FruitResource.getFruits()");
         try {
-            return this.fruitService.getFruits()
-                    .map(fruits -> {
-                        if (fruits.size() > 0) {
-                            return Response.status(Response.Status.OK).entity(fruits).build();
-                        } else {
-                            logger.error("No content returned in FruitResource.getFruits()");
-                            return Response.status(Response.Status.NO_CONTENT).entity(fruits).build();
-                        }
-                    });
+            return this.fruitService.getFruits().onItem().apply(result -> {
+                if (result.size() > 0) {
+                    return Response.status(Response.Status.OK).entity(result).build();
+                } else {
+                    logger.error("No content returned in FruitResource.getFruits()");
+                    return Response.status(Response.Status.NO_CONTENT).entity(result).build();
+                }
+            }).onFailure().recoverWithItem(failure -> Response.status(Response.Status.ACCEPTED).entity(failure.getMessage()).build());
         } catch (RuntimeException e) {
             logger.error("Circuit Breaker opens in FruitService.getFruits()");
             return Uni.createFrom().item(Response.status(Response.Status.INTERNAL_SERVER_ERROR)

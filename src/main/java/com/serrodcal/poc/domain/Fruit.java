@@ -2,7 +2,7 @@ package com.serrodcal.poc.domain;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
-import java.util.Objects;
+import java.util.Arrays;
 
 @RegisterForReflection
 public class Fruit {
@@ -17,17 +17,13 @@ public class Fruit {
         this.description = description;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Fruit fruit = (Fruit) o;
-        return Objects.equals(name, fruit.name) &&
-                Objects.equals(description, fruit.description);
+    public boolean equals(Fruit fruit) {
+        return this.name.equals(fruit.name) && this.description.equals(fruit.description);
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(name, description);
+        String[] args = {this.name, this.description};
+        return Arrays.hashCode(args);
     }
+
 }

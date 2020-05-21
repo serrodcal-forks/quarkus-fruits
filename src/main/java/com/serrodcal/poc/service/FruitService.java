@@ -8,7 +8,9 @@ import org.jboss.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 @ApplicationScoped
 public class FruitService {
@@ -31,7 +33,7 @@ public class FruitService {
     @CircuitBreaker(requestVolumeThreshold = 4)
     public Uni<Fruit> createFruit(Fruit fruit) {
         logger.info("FruitService.getFruits()");
-        if(fruit == null) {
+        if(Objects.isNull(fruit)) {
             logger.warn("Fruit is null");
             return Uni.createFrom().failure(new RuntimeException("The fruit is null"));
         }
@@ -45,5 +47,18 @@ public class FruitService {
             return Uni.createFrom().failure(new RuntimeException("The fruit already exists"));
         }
     }
+
+    /*
+    // Call maybeFail() where you want open the circuit breaker
+
+    private AtomicLong counter = new AtomicLong(0);
+
+    private void maybeFail() {
+        // introduce some artificial failures
+        final Long invocationNumber = counter.getAndIncrement();
+        if (invocationNumber % 4 > 1) { // alternate 2 successful and 2 failing invocations
+            throw new RuntimeException("Service failed.");
+        }
+    }*/
 
 }
