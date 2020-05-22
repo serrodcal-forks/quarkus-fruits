@@ -1,5 +1,8 @@
 # fruit project
 
+**Note that** in this branch (_master_) we show the reactive application.
+Switch to _routes_ branch to see the application which uses Routes (Vert.x). 
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
