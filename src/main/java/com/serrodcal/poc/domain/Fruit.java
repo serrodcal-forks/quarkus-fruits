@@ -2,7 +2,6 @@ package com.serrodcal.poc.domain;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 @RegisterForReflection
